@@ -1,25 +1,23 @@
 package com.github.kloping.iwanna.buy.impl.simple;
 
-import com.github.kloping.iwanna.buy.api.Bank;
 import com.github.kloping.iwanna.buy.api.Commodity;
 import com.github.kloping.iwanna.buy.api.Event;
-import com.github.kloping.iwanna.buy.api.Shop;
 import com.github.kloping.iwanna.buy.impl.Sys;
 import io.github.kloping.file.FileUtils;
 import io.github.kloping.serialize.HMLObject;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author github.kloping
  */
 public class SimpleSys extends Sys {
     private static int ID = 1000;
+
+    private static String commodityFileName = "commodities";
+    private static String eventsFileName = "events";
 
     public static synchronized int getId() {
         return ++ID;
@@ -39,7 +37,7 @@ public class SimpleSys extends Sys {
     }
 
     private void loadCommodity() {
-        for (File file : new File(path, "commodities").listFiles(new FileFilter() {
+        for (File file : new File(path, commodityFileName).listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {
                 return pathname.getName().endsWith(".hml");
@@ -60,7 +58,7 @@ public class SimpleSys extends Sys {
 
     @Override
     protected void loadEvents() {
-        for (File file : new File(path, "events").listFiles(new FileFilter() {
+        for (File file : new File(path, eventsFileName).listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {
                 return pathname.getName().endsWith(".hml");
@@ -76,8 +74,19 @@ public class SimpleSys extends Sys {
         }
     }
 
+    private int indexEvent = 0;
+
     @Override
     protected Event getEvent() {
-        return null;
+        Event event = null;
+        if (events.size() < indexEvent) {
+            event = events.get(indexEvent);
+            indexEvent++;
+        } else if (events.size() == indexEvent) {
+            Collections.shuffle(events);
+            indexEvent = 0;
+            event = events.get(indexEvent);
+        }
+        return event;
     }
 }
