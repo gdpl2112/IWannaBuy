@@ -46,6 +46,5 @@ public class ConfEvent implements Event {
 
     @Override
     public void run() {
-
     }
 }

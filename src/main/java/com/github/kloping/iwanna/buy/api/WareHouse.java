@@ -5,7 +5,14 @@ import java.util.List;
 /**
  * @author github.kloping
  */
-public interface WareHouse {
+public interface WareHouse extends Savable<WareHouse> {
+    /**
+     * this warehouse id
+     *
+     * @return
+     */
+    Number getId();
+
     /**
      * get this warehouse capacity
      *
@@ -35,4 +42,21 @@ public interface WareHouse {
      * @return
      */
     List<Commodity> getAll();
+
+    /**
+     * find commodity num
+     *
+     * @param id
+     * @return
+     */
+    int findCommodity(Integer id);
+
+    /**
+     * lose obj
+     *
+     * @param commodity
+     * @param num
+     * @return
+     */
+    WareHouse lose(Commodity commodity, int num);
 }

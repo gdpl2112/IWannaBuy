@@ -1,6 +1,7 @@
 package com.github.kloping.iwanna.buy.api;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author github kloping
@@ -21,9 +22,19 @@ public interface Shop {
     List<Commodity> all();
 
     /**
-     * auto next time
+     * change commodity price
+     *
+     * @param id
+     * @param offset
+     * @return
+     */
+    List<Commodity> change(int id, int offset);
+
+    /**
+     * get now all commodity
+     * map id->commodity
      *
      * @return
      */
-    long getAutoNext();
+    Map<Integer, Commodity> map();
 }

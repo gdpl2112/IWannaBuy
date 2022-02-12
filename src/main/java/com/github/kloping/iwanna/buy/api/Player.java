@@ -3,7 +3,7 @@ package com.github.kloping.iwanna.buy.api;
 /**
  * @author github.kloping
  */
-public interface Player {
+public interface Player extends Savable<Player> {
 
     /**
      * get player id

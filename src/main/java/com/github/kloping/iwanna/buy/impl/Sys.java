@@ -1,6 +1,7 @@
 package com.github.kloping.iwanna.buy.impl;
 
 import com.github.kloping.iwanna.buy.api.Bank;
+import com.github.kloping.iwanna.buy.api.Center;
 import com.github.kloping.iwanna.buy.api.Event;
 import com.github.kloping.iwanna.buy.api.Shop;
 import io.github.kloping.date.FrameUtils;
@@ -10,7 +11,7 @@ import java.util.Objects;
 /**
  * @author github.kloping
  */
-public abstract class Sys implements Runnable {
+public abstract class Sys implements Runnable, Center {
     public Shop shop;
     public Bank bank;
     public long t = 1200000;

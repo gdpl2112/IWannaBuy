@@ -28,10 +28,6 @@ public class ConfCommodity implements Commodity {
         return time;
     }
 
-    public void setTime(long time) {
-        this.time = time;
-    }
-
     @Override
     public String getName() {
         return name;
@@ -82,7 +78,21 @@ public class ConfCommodity implements Commodity {
         return owner;
     }
 
-    public void setOwner(Number owner) {
+    @Override
+    public Commodity setOwner(Number owner) {
         this.owner = owner;
+        return this;
+    }
+
+    @Override
+    public Commodity setTime(Long time) {
+        this.time = time;
+        return this;
+    }
+
+    @Override
+    public Commodity changePrice(Integer price) {
+        this.nowPrice += price;
+        return this;
     }
 }

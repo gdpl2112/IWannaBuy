@@ -23,6 +23,14 @@ public interface Bank {
     boolean getMoney(Player player, int money);
 
     /**
+     * select money
+     *
+     * @param player
+     * @return
+     */
+    Number selectMoney(Player player);
+
+    /**
      * get Interest Rate
      *
      * @return

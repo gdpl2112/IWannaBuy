@@ -4,13 +4,14 @@ import com.github.kloping.iwanna.buy.api.Commodity;
 import com.github.kloping.iwanna.buy.api.Event;
 import com.github.kloping.iwanna.buy.api.Shop;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author github.kloping
  */
 public class SimpleShop implements Shop {
-    public static final SimpleShop INSTANCE = new SimpleShop();
 
     @Override
     public Event next() {
@@ -23,7 +24,16 @@ public class SimpleShop implements Shop {
     }
 
     @Override
-    public long getAutoNext() {
-        return 0;
+    public List<Commodity> change(int id, int offset) {
+        return null;
+    }
+
+    @Override
+    public Map<Integer, Commodity> map() {
+        Map<Integer, Commodity> map = new HashMap<>();
+        for (Commodity commodity : all()) {
+            map.put(commodity.getId(), commodity);
+        }
+        return map;
     }
 }

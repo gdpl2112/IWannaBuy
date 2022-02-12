@@ -52,4 +52,28 @@ public interface Commodity {
      * @return
      */
     Number getOwner();
+
+    /**
+     * set Owner
+     *
+     * @param owner
+     * @return
+     */
+    Commodity setOwner(Number owner);
+
+    /**
+     * set time
+     *
+     * @param time
+     * @return
+     */
+    Commodity setTime(Long time);
+
+    /**
+     * change price
+     *
+     * @param price
+     * @return
+     */
+    Commodity changePrice(Integer price);
 }
