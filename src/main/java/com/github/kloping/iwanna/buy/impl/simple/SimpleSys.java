@@ -19,6 +19,7 @@ public class SimpleSys extends Sys {
     private static int ID = 1000;
 
     public static SimpleSys INSTANCE;
+    public static final Random RANDOM = new Random();
 
     private static String commodityFileName = "commodities";
     private static String eventsFileName = "events";

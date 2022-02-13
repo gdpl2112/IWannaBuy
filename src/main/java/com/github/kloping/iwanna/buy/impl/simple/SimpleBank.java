@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.github.kloping.iwanna.buy.impl.simple.SimpleSys.RANDOM;
 import static io.github.kloping.judge.Judge.isNotEmpty;
 
 /**
@@ -20,7 +21,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
     }
 
     private String path;
-    private Double rate = 0.01;
+    private Double rate = 0.001;
     private Map<Number, Number> bankMap = new HashMap<>();
 
     public SimpleBank(String path) {
@@ -83,7 +84,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
 
     @Override
     public double getInterestRate() {
-        return rate;
+        return rate == null ? rate() : rate;
     }
 
     @Override
@@ -99,6 +100,8 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
 
     @Override
     public double rate() {
-        return rate;
+        int i = RANDOM.nextInt(30) + 20;
+        float f = 0.0001f * i;
+        return rate = Double.valueOf(f);
     }
 }
