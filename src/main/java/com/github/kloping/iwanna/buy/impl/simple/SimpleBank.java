@@ -77,7 +77,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
         if (bankMap.containsKey(player.getId())) {
             return bankMap.get(player.getId());
         } else {
-            return null;  
+            return null;
         }
     }
 
@@ -88,6 +88,12 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
 
     @Override
     public int next() {
+        bankMap.forEach((k, v) -> {
+            float f = (float) (v.intValue() * getInterestRate());
+            int fi = (int) f;
+            fi = fi > 0 ? fi : 1;
+            bankMap.put(k, v.intValue() + fi);
+        });
         return 0;
     }
 
