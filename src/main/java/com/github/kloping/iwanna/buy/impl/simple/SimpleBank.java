@@ -77,7 +77,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
         if (bankMap.containsKey(player.getId())) {
             return bankMap.get(player.getId());
         } else {
-            return null;
+            return null;  
         }
     }
 

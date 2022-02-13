@@ -13,6 +13,10 @@ import java.util.Map;
  */
 public class SimpleShop implements Shop {
 
+    public SimpleShop(String path) {
+
+    }
+
     @Override
     public Event next() {
         return null;

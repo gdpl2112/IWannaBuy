@@ -1,5 +1,7 @@
 package com.github.kloping.iwanna.buy.api;
 
+import java.util.List;
+
 /**
  * @author github.kloping
  */
@@ -60,4 +62,10 @@ public interface Center {
      */
     Shop getShop();
 
+    /**
+     * all type commodity
+     *
+     * @return
+     */
+    List<Commodity> commodities();
 }
