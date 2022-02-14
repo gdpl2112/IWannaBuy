@@ -1,5 +1,7 @@
 package com.github.kloping.iwanna.buy.api;
 
+import java.util.List;
+
 /**
  * @author github.kloping
  */
@@ -30,4 +32,11 @@ public interface Event extends Runnable {
      */
     @Override
     void run();
+
+    /**
+     * must id
+     *
+     * @return
+     */
+    List<Integer> getMustId();
 }

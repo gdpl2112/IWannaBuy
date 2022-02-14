@@ -37,4 +37,11 @@ public interface Shop {
      * @return
      */
     Map<Integer, Commodity> map();
+
+    /**
+     * commodity num
+     *
+     * @return
+     */
+    int getNum();
 }

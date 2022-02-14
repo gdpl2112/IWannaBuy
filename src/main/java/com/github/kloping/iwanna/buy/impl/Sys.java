@@ -30,17 +30,9 @@ public abstract class Sys implements Runnable, Center {
 
     public void next() {
         index = 0;
-        getEvent().run();
         shop.next();
         bank.next();
     }
-
-    /**
-     * get next event
-     *
-     * @return
-     */
-    protected abstract Event getEvent();
 
     @Override
     public void run() {

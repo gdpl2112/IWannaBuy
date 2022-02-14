@@ -68,4 +68,11 @@ public interface Center {
      * @return
      */
     List<Commodity> commodities();
+
+    /**
+     * next event
+     *
+     * @return
+     */
+    Event getEvent();
 }

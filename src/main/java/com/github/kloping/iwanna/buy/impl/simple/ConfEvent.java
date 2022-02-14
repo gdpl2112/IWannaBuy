@@ -1,14 +1,18 @@
 package com.github.kloping.iwanna.buy.impl.simple;
 
+import com.github.kloping.iwanna.buy.api.Center;
+import com.github.kloping.iwanna.buy.api.CenterFindable;
 import com.github.kloping.iwanna.buy.api.Event;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author github.kloping
  */
-public class ConfEvent implements Event {
+public class ConfEvent implements Event, CenterFindable {
     private Map<Integer, Integer> changes = new HashMap<>();
     private String desc;
     private Integer id;
@@ -46,5 +50,18 @@ public class ConfEvent implements Event {
 
     @Override
     public void run() {
+        changes.forEach((k, v) -> {
+            getCenter().getShop().change(k, v);
+        });
+    }
+
+    @Override
+    public Center getCenter() {
+        return SimpleSys.INSTANCE;
+    }
+
+    @Override
+    public List<Integer> getMustId() {
+        return new ArrayList<>(changes.keySet());
     }
 }

@@ -95,6 +95,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
             fi = fi > 0 ? fi : 1;
             bankMap.put(k, v.intValue() + fi);
         });
+        apply();
         return 0;
     }
 

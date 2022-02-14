@@ -125,7 +125,7 @@ public class SimpleSys extends Sys {
     private int indexEvent = 0;
 
     @Override
-    protected Event getEvent() {
+    public Event getEvent() {
         Event event = null;
         if (events.size() < indexEvent) {
             event = events.get(indexEvent);
