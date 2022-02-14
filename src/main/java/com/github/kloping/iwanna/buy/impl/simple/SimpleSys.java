@@ -5,6 +5,7 @@ import com.github.kloping.iwanna.buy.api.Commodity;
 import com.github.kloping.iwanna.buy.api.Event;
 import com.github.kloping.iwanna.buy.api.Shop;
 import com.github.kloping.iwanna.buy.impl.Sys;
+import io.github.kloping.date.FrameUtils;
 import io.github.kloping.file.FileUtils;
 import io.github.kloping.serialize.HMLObject;
 
@@ -24,11 +25,22 @@ public class SimpleSys extends Sys {
     private static String commodityFileName = "commodities";
     private static String eventsFileName = "events";
     private static String playerFileName = "players";
-    private static String backFileName = "bankConf.hml";
+    private static String bankFileName = "bankConf.hml";
+    private static String shopFileName = "shopConf.hml";
     private static String warehouseFileName = "warehouses";
+
+    @Override
+    public int getSerialId() {
+        return getId();
+    }
 
     public static synchronized int getId() {
         return ++ID;
+    }
+
+    @Override
+    public int updateSerialId(int id) {
+        return updateId(id);
     }
 
     public static synchronized int updateId(int id) {
@@ -37,11 +49,20 @@ public class SimpleSys extends Sys {
 
     private String path;
 
-    public SimpleSys(String path) {
-        super(new SimpleShop(path), new SimpleBank(path));
-        this.path = path;
-        loadEvents();
-        loadCommodity();
+    public static SimpleSys factory(String path) {
+        SimpleSys sys = new SimpleSys();
+        SimpleSys.INSTANCE = sys;
+        sys.path = path;
+        sys.shop = new SimpleShop(path);
+        sys.bank = new SimpleBank(path);
+        FrameUtils.INSTANCE.getFrames().add(sys);
+        sys.loadEvents();
+        sys.loadCommodity();
+        sys.t = 10 * 1000L;
+        return sys;
+    }
+
+    private SimpleSys() {
     }
 
     private void loadCommodity() {
@@ -109,7 +130,12 @@ public class SimpleSys extends Sys {
 
     @Override
     public String bankPath() {
-        return backFileName;
+        return bankFileName;
+    }
+
+    @Override
+    public String shopPath() {
+        return shopFileName;
     }
 
     @Override
@@ -127,7 +153,7 @@ public class SimpleSys extends Sys {
     @Override
     public Event getEvent() {
         Event event = null;
-        if (events.size() < indexEvent) {
+        if (indexEvent < events.size()) {
             event = events.get(indexEvent);
             indexEvent++;
         } else if (events.size() == indexEvent) {
@@ -141,6 +167,16 @@ public class SimpleSys extends Sys {
     @Override
     public List<Commodity> commodities() {
         return new ArrayList<>(commodityMap.values());
+    }
+
+    @Override
+    public String toString() {
+        return "SimpleSys{" +
+                "path='" + path + '\'' +
+                ", events=" + events +
+                ", commodityMap=" + commodityMap +
+                ", indexEvent=" + indexEvent +
+                '}';
     }
 }
 

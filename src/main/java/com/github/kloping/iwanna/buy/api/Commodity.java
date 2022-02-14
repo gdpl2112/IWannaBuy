@@ -76,4 +76,19 @@ public interface Commodity {
      * @return
      */
     Commodity changePrice(Integer price);
+
+    /**
+     * get Serial Id
+     *
+     * @return
+     */
+    Integer getSerialId();
+
+    /**
+     * set serial id
+     *
+     * @param id
+     * @return
+     */
+    Integer setSerialId(Integer id);
 }

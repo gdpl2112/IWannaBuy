@@ -19,6 +19,7 @@ public class T01 {
         commodity.setTime(System.currentTimeMillis());
         commodity.setNowPrice(commodity.getOriginalPrice());
         commodity.setSrc("");
+        commodity.setSerialId(-1);
         String hmlStr = HMLObject.toHMLString(commodity);
         System.out.println(hmlStr);
     }

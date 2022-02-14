@@ -95,4 +95,31 @@ public class ConfCommodity implements Commodity {
         this.nowPrice += price;
         return this;
     }
+
+    private Integer sid = 0;
+
+    @Override
+    public Integer getSerialId() {
+        return sid;
+    }
+
+    @Override
+    public Integer setSerialId(Integer id) {
+        return sid;
+    }
+
+    @Override
+    public String toString() {
+        return "\nConfCommodity{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", size=" + size +
+                ", originalPrice=" + originalPrice +
+                ", nowPrice=" + nowPrice +
+                ", owner=" + owner +
+                ", time=" + time +
+                ", src='" + src + '\'' +
+                ", sid=" + sid +
+                '}';
+    }
 }

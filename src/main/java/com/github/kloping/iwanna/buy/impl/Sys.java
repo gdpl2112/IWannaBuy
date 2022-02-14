@@ -17,6 +17,9 @@ public abstract class Sys implements Runnable, Center {
     public long t = 1200000;
     public long index = 0;
 
+    public Sys() {
+    }
+
     public Sys(Shop shop, Bank bank) {
         this.shop = shop;
         this.bank = bank;

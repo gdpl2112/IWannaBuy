@@ -42,6 +42,13 @@ public interface Center {
     String bankPath();
 
     /**
+     * shop path
+     *
+     * @return
+     */
+    String shopPath();
+
+    /**
      * warehouse path
      *
      * @return
@@ -75,4 +82,19 @@ public interface Center {
      * @return
      */
     Event getEvent();
+
+    /**
+     * request a serial id
+     *
+     * @return
+     */
+    int getSerialId();
+
+    /**
+     * udate SerialId
+     *
+     * @param id
+     * @return
+     */
+    int updateSerialId(int id);
 }

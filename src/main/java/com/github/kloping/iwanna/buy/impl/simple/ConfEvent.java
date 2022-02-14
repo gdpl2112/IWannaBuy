@@ -1,8 +1,10 @@
 package com.github.kloping.iwanna.buy.impl.simple;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.github.kloping.iwanna.buy.api.Center;
 import com.github.kloping.iwanna.buy.api.CenterFindable;
 import com.github.kloping.iwanna.buy.api.Event;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,13 +55,16 @@ public class ConfEvent implements Event, CenterFindable {
         changes.forEach((k, v) -> {
             getCenter().getShop().change(k, v);
         });
+        Logger.getLogger(this.getClass()).info("event touch:" + getDesc());
     }
 
+    @JSONField(serialize = false, deserialize = false)
     @Override
     public Center getCenter() {
         return SimpleSys.INSTANCE;
     }
 
+    @JSONField(serialize = false, deserialize = false)
     @Override
     public List<Integer> getMustId() {
         return new ArrayList<>(changes.keySet());

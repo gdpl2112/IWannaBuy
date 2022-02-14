@@ -1,7 +1,10 @@
 package com.github.kloping.iwanna.buy.impl.simple;
 
 import com.github.kloping.iwanna.buy.api.*;
+import io.github.kloping.file.FileUtils;
+import io.github.kloping.serialize.HMLObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,10 +15,22 @@ import static com.github.kloping.iwanna.buy.impl.simple.SimpleSys.RANDOM;
 /**
  * @author github.kloping
  */
-public class SimpleShop implements Shop, CenterFindable {
+public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
 
     public SimpleShop(String path) {
+    }
 
+    /**
+     * used by hml
+     */
+    public SimpleShop() {
+    }
+
+    @Override
+    public Shop apply() {
+        File file = new File(getCenter().basePath(), getCenter().shopPath());
+        FileUtils.putStringInFile(HMLObject.toHMLString(this), file);
+        return this;
     }
 
     @Override
@@ -26,6 +41,9 @@ public class SimpleShop implements Shop, CenterFindable {
     @Override
     public Event next() {
         Event event = getCenter().getEvent();
+        changed.forEach((k, v) -> {
+            k.changePrice(-v);
+        });
         event.run();
         shake();
         return event;
@@ -40,16 +58,12 @@ public class SimpleShop implements Shop, CenterFindable {
 
     private void shake() {
         commodityMap.clear();
-        for (Commodity commodity : changed) {
+        for (Commodity commodity : changed.keySet()) {
             commodityMap.put(commodity.getId(), commodity);
         }
         changed.clear();
         for (int i = commodityMap.size(); i < getNum(); i++) {
-            while (true) {
-                if (append()) {
-                    break;
-                }
-            }
+            append0();
         }
     }
 
@@ -63,14 +77,22 @@ public class SimpleShop implements Shop, CenterFindable {
         }
     }
 
-    private List<Commodity> changed = new ArrayList<>();
+    private void append0() {
+        while (true) {
+            if (append()) {
+                break;
+            }
+        }
+    }
+
+    private Map<Commodity, Integer> changed = new HashMap<>();
 
     @Override
     public List<Commodity> change(int id, int offset) {
         for (Commodity commodity : getCenter().commodities()) {
             if (commodity.getId() == id) {
                 commodity.changePrice(offset);
-                changed.add(commodity);
+                changed.put(commodity, offset);
             }
         }
         return getCenter().commodities();

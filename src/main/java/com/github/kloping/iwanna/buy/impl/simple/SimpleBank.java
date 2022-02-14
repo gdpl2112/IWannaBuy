@@ -20,9 +20,24 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
         return SimpleSys.INSTANCE;
     }
 
+    {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                apply();
+            }
+        });
+    }
+
     private String path;
     private Double rate = 0.001;
     private Map<Number, Number> bankMap = new HashMap<>();
+
+    /**
+     * used by hml
+     */
+    public SimpleBank() {
+    }
 
     public SimpleBank(String path) {
         this.path = path;
@@ -95,6 +110,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
             fi = fi > 0 ? fi : 1;
             bankMap.put(k, v.intValue() + fi);
         });
+        rate();
         apply();
         return 0;
     }

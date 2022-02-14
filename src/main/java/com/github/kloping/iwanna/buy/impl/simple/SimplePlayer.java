@@ -1,7 +1,9 @@
 package com.github.kloping.iwanna.buy.impl.simple;
 
 import com.github.kloping.iwanna.buy.api.*;
+import io.github.kloping.clasz.ClassUtils;
 import io.github.kloping.file.FileUtils;
+import io.github.kloping.object.ObjectUtils;
 import io.github.kloping.serialize.HMLObject;
 
 import java.io.File;
@@ -12,6 +14,7 @@ import static io.github.kloping.judge.Judge.isNotEmpty;
  * @author github.kloping
  */
 public class SimplePlayer implements Player, CenterFindable {
+
     @Override
     public Center getCenter() {
         return SimpleSys.INSTANCE;
@@ -31,9 +34,9 @@ public class SimplePlayer implements Player, CenterFindable {
         }
     }
 
-    private Long qid;
+    private Long qid = -1L;
     private File dir;
-    private Long money;
+    private Long money = 1000L;
 
     @Override
     public Number getId() {
@@ -74,7 +77,14 @@ public class SimplePlayer implements Player, CenterFindable {
     }
 
     @Override
-    public Boolean buy(Commodity commodity, int num) {
+    public Boolean buy(Commodity c, int num) {
+        Commodity commodity = null;
+        try {
+            commodity = ClassUtils.copyAllField(c);
+            commodity.setSerialId(getCenter().getSerialId());
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         if (commodity.getNowPrice().intValue() * num >= getMoney().intValue()) {
             return false;
         } else {

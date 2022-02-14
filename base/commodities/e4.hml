@@ -1,11 +1,11 @@
 ->com.github.kloping.iwanna.buy.impl.simple.ConfCommodity
 	owner: -1
-	nowPrice: 10
-	size: 1
-	originalPrice: 10
+	nowPrice: 21
+	originalPrice: 21
+	size: 2
 	src: ""
-	id: 2
+	id: 5
 	time: -1
 	sid: 0
-	name: "转基因大豆"
+	name: "韩版潮流ins青少年外套"
 
