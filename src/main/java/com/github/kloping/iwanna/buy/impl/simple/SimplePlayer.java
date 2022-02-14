@@ -57,8 +57,11 @@ public class SimplePlayer implements Player, CenterFindable {
 
     @Override
     public Number save(int money) {
-        getCenter().getBank().save(this, money);
-        return money;
+        if (getCenter().getBank().save(this, money)) {
+            return lose(money);
+        } else {
+            return money;
+        }
     }
 
     @Override
@@ -85,13 +88,16 @@ public class SimplePlayer implements Player, CenterFindable {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        if (commodity.getNowPrice().intValue() * num >= getMoney().intValue()) {
+        int mm = commodity.getNowPrice().intValue() * num;
+        if (mm >= getMoney().intValue()) {
             return false;
         } else {
             commodity.setOwner(qid);
             commodity.setTime(System.currentTimeMillis());
             getWareHouse().add(commodity);
+            lose(mm);
             getWareHouse().apply();
+            apply();
             return true;
         }
     }
@@ -104,6 +110,7 @@ public class SimplePlayer implements Player, CenterFindable {
             int m0 = shopComm.getNowPrice().intValue() * num;
             getWareHouse().lose(commodity, num);
             append(m0);
+            apply();
             return true;
         } else {
             return false;

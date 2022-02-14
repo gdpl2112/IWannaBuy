@@ -1,0 +1,5 @@
+->com.github.kloping.iwanna.buy.impl.simple.SimplePlayer
+	qid: 3474006766
+	dir: ->java.io.File
+		path: ".\base\players"
+	money: 900

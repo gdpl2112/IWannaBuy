@@ -118,7 +118,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
     @Override
     public double rate() {
         int i = RANDOM.nextInt(30) + 20;
-        float f = 0.0001f * i;
-        return rate = Double.valueOf(f);
+        Float f = 0.0001f * i;
+        return rate = Double.valueOf(f.toString().substring(0, 6));
     }
 }
