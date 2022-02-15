@@ -1,8 +1,10 @@
 package com.github.kloping.iwanna.buy.impl.simple;
 
+import com.alibaba.fastjson.JSON;
 import com.github.kloping.iwanna.buy.api.*;
 import io.github.kloping.file.FileUtils;
 import io.github.kloping.serialize.HMLObject;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
         });
         event.run();
         shake();
+        Logger.getLogger(this.getClass()).info("shop list " + commodityMap);
         return event;
     }
 
@@ -60,6 +63,7 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
         commodityMap.clear();
         for (Commodity commodity : changed.keySet()) {
             commodityMap.put(commodity.getId(), commodity);
+            Logger.getLogger(this.getClass()).info("shop append from changed:" + JSON.toJSONString(commodity));
         }
         changed.clear();
         for (int i = commodityMap.size(); i < getNum(); i++) {
@@ -73,6 +77,7 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
             return false;
         } else {
             commodityMap.put(commodity.getId(), commodity);
+            Logger.getLogger(this.getClass()).info("shop append from sys:" + JSON.toJSONString(commodity));
             return true;
         }
     }

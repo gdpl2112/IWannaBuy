@@ -5,6 +5,7 @@ import io.github.kloping.clasz.ClassUtils;
 import io.github.kloping.file.FileUtils;
 import io.github.kloping.object.ObjectUtils;
 import io.github.kloping.serialize.HMLObject;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 
@@ -21,15 +22,18 @@ public class SimplePlayer implements Player, CenterFindable {
     }
 
     public static SimplePlayer getInstance(Long qid, File dir) {
+        Logger.getLogger(SimplePlayer.class).info("get player " + qid);
         File file = new File(dir, qid.toString());
         String hmlStr = FileUtils.getStringFromFile(file.getAbsolutePath());
         if (isNotEmpty(hmlStr)) {
+            Logger.getLogger(SimplePlayer.class).info("get player from parse-" + qid);
             return HMLObject.parseObject(hmlStr).toJavaObject(SimplePlayer.class);
         } else {
             SimplePlayer player = new SimplePlayer();
             player.dir = dir;
             player.qid = qid;
             player.apply();
+            Logger.getLogger(SimplePlayer.class).info("get player from new-" + qid);
             return player;
         }
     }
@@ -57,7 +61,9 @@ public class SimplePlayer implements Player, CenterFindable {
 
     @Override
     public Number save(int money) {
+        Logger.getLogger(this.getClass()).info("player-" + qid + "-will save:" + money);
         if (getCenter().getBank().save(this, money)) {
+            Logger.getLogger(this.getClass()).info("player-" + qid + "-saved:" + money);
             return lose(money);
         } else {
             return money;
@@ -81,6 +87,7 @@ public class SimplePlayer implements Player, CenterFindable {
 
     @Override
     public Boolean buy(Commodity c, int num) {
+        Logger.getLogger(this.getClass()).info("player " + qid + " will buy " + c.getName() + "(" + c.getId() + "," + c.getNowPrice() + ")");
         Commodity commodity = null;
         try {
             commodity = ClassUtils.copyAllField(c);
@@ -98,19 +105,22 @@ public class SimplePlayer implements Player, CenterFindable {
             lose(mm);
             getWareHouse().apply();
             apply();
+            Logger.getLogger(this.getClass()).info("player " + qid + " buy ed " + c.getName() + "(" + c.getId() + "," + c.getNowPrice() + ")");
             return true;
         }
     }
 
     @Override
-    public Boolean sell(Commodity commodity, int num) {
-        int n2 = getWareHouse().findCommodity(commodity.getId());
+    public Boolean sell(Commodity c, int num) {
+        Logger.getLogger(this.getClass()).info("player " + qid + " will sell " + c.getName() + "(" + c.getId() + "," + c.getNowPrice() + ")");
+        int n2 = getWareHouse().findCommodity(c.getId());
         if (n2 >= n2) {
-            Commodity shopComm = getCenter().getShop().map().get(commodity.getId());
+            Commodity shopComm = getCenter().getShop().map().get(c.getId());
             int m0 = shopComm.getNowPrice().intValue() * num;
-            getWareHouse().lose(commodity, num);
+            getWareHouse().lose(c, num);
             append(m0);
             apply();
+            Logger.getLogger(this.getClass()).info("player " + qid + " sell ed " + c.getName() + "(" + c.getId() + "," + c.getNowPrice() + ")");
             return true;
         } else {
             return false;

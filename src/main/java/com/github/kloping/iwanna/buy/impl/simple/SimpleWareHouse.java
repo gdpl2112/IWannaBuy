@@ -4,6 +4,7 @@ import com.github.kloping.iwanna.buy.api.Commodity;
 import com.github.kloping.iwanna.buy.api.WareHouse;
 import io.github.kloping.file.FileUtils;
 import io.github.kloping.serialize.HMLObject;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.Iterator;
@@ -82,11 +83,13 @@ public class SimpleWareHouse implements WareHouse {
                 i++;
             }
         }
+        Logger.getLogger(this.getClass()).info("warehouse " + getId() + " find " + id + " " + i + "(s)");
         return i;
     }
 
     @Override
     public WareHouse lose(Commodity commodity, int num) {
+        Logger.getLogger(this.getClass()).info("warehouse " + getId() + " lose " + commodity.getId() + "-" + num);
         int i = num;
         Iterator<Commodity> commodityIterator = getAll().iterator();
         while (i == 0 || commodityIterator.hasNext()) {

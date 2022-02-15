@@ -54,6 +54,7 @@ public class ConfEvent implements Event, CenterFindable {
     public void run() {
         changes.forEach((k, v) -> {
             getCenter().getShop().change(k, v);
+            Logger.getLogger(this.getClass()).info("event touch " + k + "=" + v);
         });
         Logger.getLogger(this.getClass()).info("event touch:" + getDesc());
     }

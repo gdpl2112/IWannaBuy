@@ -2,4 +2,4 @@
 	qid: 3474006766
 	dir: ->java.io.File
 		path: ".\base\players"
-	money: 900
+	money: 700

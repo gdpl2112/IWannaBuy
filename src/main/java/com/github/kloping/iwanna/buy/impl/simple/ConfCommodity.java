@@ -1,6 +1,7 @@
 package com.github.kloping.iwanna.buy.impl.simple;
 
 import com.github.kloping.iwanna.buy.api.Commodity;
+import org.apache.log4j.Logger;
 
 /**
  * @author github.kloping
@@ -93,6 +94,7 @@ public class ConfCommodity implements Commodity {
     @Override
     public Commodity changePrice(Integer price) {
         this.nowPrice += price;
+        Logger.getLogger(this.getClass()).info(name + "-" + id + "-change-Price:" + price + "-now-" + this.nowPrice);
         return this;
     }
 
@@ -106,20 +108,5 @@ public class ConfCommodity implements Commodity {
     @Override
     public Integer setSerialId(Integer id) {
         return sid;
-    }
-
-    @Override
-    public String toString() {
-        return "\nConfCommodity{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", size=" + size +
-                ", originalPrice=" + originalPrice +
-                ", nowPrice=" + nowPrice +
-                ", owner=" + owner +
-                ", time=" + time +
-                ", src='" + src + '\'' +
-                ", sid=" + sid +
-                '}';
     }
 }

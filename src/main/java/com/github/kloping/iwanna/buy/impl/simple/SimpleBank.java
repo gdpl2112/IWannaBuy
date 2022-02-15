@@ -3,6 +3,7 @@ package com.github.kloping.iwanna.buy.impl.simple;
 import com.github.kloping.iwanna.buy.api.*;
 import io.github.kloping.file.FileUtils;
 import io.github.kloping.serialize.HMLObject;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.HashMap;
@@ -49,6 +50,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
         if (isNotEmpty(hmlStr)) {
             SimpleBank bank = HMLObject.parseObject(hmlStr).toJavaObject(SimpleBank.class);
             this.bankMap.putAll(bank.bankMap);
+            Logger.getLogger(this.getClass()).info("bank load");
         }
     }
 
@@ -56,6 +58,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
     public Bank apply() {
         File file = new File(path, getCenter().bankPath());
         FileUtils.putStringInFile(HMLObject.toHMLString(this), file);
+        Logger.getLogger(this.getClass()).info("bank apply");
         return this;
     }
 
@@ -67,6 +70,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
             } else {
                 bankMap.put(player.getId(), money);
             }
+            Logger.getLogger(this.getClass()).info("player-" + player.getId() + " Take in the From bank " + money);
             return true;
         } else {
             return false;
@@ -79,6 +83,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
             if (bankMap.get(player.getId()).intValue() >= money) {
                 player.append(money);
                 bankMap.put(player.getId(), bankMap.get(player.getId()).intValue() - money);
+                Logger.getLogger(this.getClass()).info("player-" + player.getId() + " Take out the From bank " + money);
                 return true;
             } else {
                 return false;
@@ -109,6 +114,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
             int fi = (int) f;
             fi = fi > 0 ? fi : 1;
             bankMap.put(k, v.intValue() + fi);
+            Logger.getLogger(this.getClass()).info("player-" + k + " append From bank " + fi);
         });
         rate();
         apply();
@@ -117,8 +123,13 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
 
     @Override
     public double rate() {
-        int i = RANDOM.nextInt(30) + 20;
-        Float f = 0.0001f * i;
-        return rate = Double.valueOf(f.toString().substring(0, 6));
+        try {
+            int i = RANDOM.nextInt(30) + 20;
+            Float f = 0.0001f * i;
+            String s0 = f.toString().length() > 6 ? f.toString().substring(0, 6) : f.toString();
+            return rate = Double.valueOf(s0);
+        } finally {
+            Logger.getLogger(this.getClass()).info("rate Change for " + rate);
+        }
     }
 }
