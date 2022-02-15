@@ -55,10 +55,10 @@ public class SimpleSys extends Sys {
         sys.path = path;
         sys.shop = new SimpleShop(path);
         sys.bank = new SimpleBank(path);
+        sys.t = 10 * 1000L;
         FrameUtils.INSTANCE.getFrames().add(sys);
         sys.loadEvents();
         sys.loadCommodity();
-        sys.t = 10 * 1000L;
         return sys;
     }
 

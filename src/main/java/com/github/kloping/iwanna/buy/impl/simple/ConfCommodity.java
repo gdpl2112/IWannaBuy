@@ -94,7 +94,7 @@ public class ConfCommodity implements Commodity {
     @Override
     public Commodity changePrice(Integer price) {
         this.nowPrice += price;
-        Logger.getLogger(this.getClass()).info(name + "-" + id + " change-Price:" + price + " now " + this.nowPrice);
+        Logger.getLogger(this.getClass()).info(name + "-" + id + " change Price:" + price + " now:" + this.nowPrice);
         return this;
     }
 
