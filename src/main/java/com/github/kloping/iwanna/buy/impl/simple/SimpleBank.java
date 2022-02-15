@@ -70,6 +70,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
             } else {
                 bankMap.put(player.getId(), money);
             }
+            apply();
             Logger.getLogger(this.getClass()).info("player-" + player.getId() + " Take in the From bank " + money);
             return true;
         } else {
@@ -84,6 +85,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
                 player.append(money);
                 bankMap.put(player.getId(), bankMap.get(player.getId()).intValue() - money);
                 Logger.getLogger(this.getClass()).info("player-" + player.getId() + " Take out the From bank " + money);
+                apply();
                 return true;
             } else {
                 return false;
@@ -114,8 +116,9 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
             int fi = (int) f;
             fi = fi > 0 ? fi : 1;
             bankMap.put(k, v.intValue() + fi);
-            Logger.getLogger(this.getClass()).info("player-" + k + " append From bank " + fi);
+            Logger.getLogger(this.getClass()).info("player " + k + " append From bank " + fi);
         });
+        Logger.getLogger(this.getClass()).info("bankMap " + bankMap);
         rate();
         apply();
         return 0;

@@ -3,7 +3,6 @@ package com.github.kloping.iwanna.buy.impl.simple;
 import com.github.kloping.iwanna.buy.api.*;
 import io.github.kloping.clasz.ClassUtils;
 import io.github.kloping.file.FileUtils;
-import io.github.kloping.object.ObjectUtils;
 import io.github.kloping.serialize.HMLObject;
 import org.apache.log4j.Logger;
 
@@ -22,18 +21,19 @@ public class SimplePlayer implements Player, CenterFindable {
     }
 
     public static SimplePlayer getInstance(Long qid, File dir) {
+        SimplePlayer player;
         Logger.getLogger(SimplePlayer.class).info("get player " + qid);
         File file = new File(dir, qid.toString());
         String hmlStr = FileUtils.getStringFromFile(file.getAbsolutePath());
         if (isNotEmpty(hmlStr)) {
-            Logger.getLogger(SimplePlayer.class).info("get player from parse-" + qid);
-            return HMLObject.parseObject(hmlStr).toJavaObject(SimplePlayer.class);
+            Logger.getLogger(SimplePlayer.class).info("get player from parse " + qid);
+            return player = HMLObject.parseObject(hmlStr).toJavaObject(SimplePlayer.class);
         } else {
-            SimplePlayer player = new SimplePlayer();
+            player = new SimplePlayer();
             player.dir = dir;
             player.qid = qid;
             player.apply();
-            Logger.getLogger(SimplePlayer.class).info("get player from new-" + qid);
+            Logger.getLogger(SimplePlayer.class).info("get player from new " + qid);
             return player;
         }
     }
@@ -61,9 +61,9 @@ public class SimplePlayer implements Player, CenterFindable {
 
     @Override
     public Number save(int money) {
-        Logger.getLogger(this.getClass()).info("player-" + qid + "-will save:" + money);
+        Logger.getLogger(this.getClass()).info("player " + qid + " will save:" + money);
         if (getCenter().getBank().save(this, money)) {
-            Logger.getLogger(this.getClass()).info("player-" + qid + "-saved:" + money);
+            Logger.getLogger(this.getClass()).info("player " + qid + " saved:" + money);
             return lose(money);
         } else {
             return money;
@@ -77,12 +77,20 @@ public class SimplePlayer implements Player, CenterFindable {
 
     @Override
     public Number append(int money) {
-        return this.money += money;
+        try {
+            return this.money += money;
+        } finally {
+            apply();
+        }
     }
 
     @Override
     public Number lose(int money) {
-        return this.money -= money;
+        try {
+            return this.money -= money;
+        } finally {
+            apply();
+        }
     }
 
     @Override

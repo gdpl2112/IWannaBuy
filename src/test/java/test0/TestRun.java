@@ -18,5 +18,6 @@ public class TestRun {
     public static void main(String[] args) {
         SimpleSys sys = SimpleSys.factory("./base");
         SimpleSys.INSTANCE = sys;
+        Player player = SimplePlayer.getInstance(3474006766L, new File(sys.basePath(), sys.playersPath()));
     }
 }

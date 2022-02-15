@@ -43,9 +43,6 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
     @Override
     public Event next() {
         Event event = getCenter().getEvent();
-        changed.forEach((k, v) -> {
-            k.changePrice(-v);
-        });
         event.run();
         shake();
         Logger.getLogger(this.getClass()).info("shop list " + commodityMap);
@@ -65,7 +62,6 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
             commodityMap.put(commodity.getId(), commodity);
             Logger.getLogger(this.getClass()).info("shop append from changed:" + JSON.toJSONString(commodity));
         }
-        changed.clear();
         for (int i = commodityMap.size(); i < getNum(); i++) {
             append0();
         }
@@ -76,6 +72,11 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
         if (commodityMap.containsKey(commodity.getId())) {
             return false;
         } else {
+            int r = commodity.getNowPrice().intValue() / 100;
+            r = r <= 0 ? 2 : r;
+            int n = RANDOM.nextInt(r) - r / 2;
+            commodity.changePrice(n);
+            Logger.getLogger(this.getClass()).info("shop random commodity " + n + JSON.toJSONString(commodity));
             commodityMap.put(commodity.getId(), commodity);
             Logger.getLogger(this.getClass()).info("shop append from sys:" + JSON.toJSONString(commodity));
             return true;
