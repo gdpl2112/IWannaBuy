@@ -1,13 +1,15 @@
 package io.github.kloping.iwanna.buy.impl.simple;
 
+import com.alibaba.fastjson.JSON;
+import io.github.kloping.date.FrameUtils;
+import io.github.kloping.file.FileUtils;
 import io.github.kloping.iwanna.buy.api.Bank;
 import io.github.kloping.iwanna.buy.api.Commodity;
 import io.github.kloping.iwanna.buy.api.Event;
 import io.github.kloping.iwanna.buy.api.Shop;
 import io.github.kloping.iwanna.buy.impl.Sys;
-import io.github.kloping.date.FrameUtils;
-import io.github.kloping.file.FileUtils;
 import io.github.kloping.serialize.HMLObject;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -63,6 +65,12 @@ public class SimpleSys extends Sys {
     }
 
     private SimpleSys() {
+    }
+
+    @Override
+    public void next() {
+        super.next();
+        Logger.getLogger(this.getClass()).debug("=======================");
     }
 
     private void loadCommodity() {

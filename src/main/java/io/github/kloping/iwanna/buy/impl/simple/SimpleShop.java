@@ -1,7 +1,6 @@
 package io.github.kloping.iwanna.buy.impl.simple;
 
 import com.alibaba.fastjson.JSON;
-import com.github.kloping.iwanna.buy.api.*;
 import io.github.kloping.file.FileUtils;
 import io.github.kloping.iwanna.buy.api.*;
 import io.github.kloping.serialize.HMLObject;
@@ -46,8 +45,16 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
         Event event = getCenter().getEvent();
         event.run();
         shake();
-        Logger.getLogger(this.getClass()).info("shop list " + commodityMap);
+        Logger.getLogger(this.getClass()).debug("shop list " + getNames());
         return event;
+    }
+
+    private String getNames() {
+        StringBuilder sb = new StringBuilder();
+        commodityMap.forEach((k, v) -> {
+            sb.append(v.getName()).append(",");
+        });
+        return sb.toString().substring(0, sb.length() - 1);
     }
 
     @Override
@@ -75,7 +82,8 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
         } else {
             int r = commodity.getNowPrice().intValue() / 100;
             r = r <= 0 ? 2 : r;
-            int n = RANDOM.nextInt(r) - r / 2;
+            int n = RANDOM.nextInt(r);
+            n = n - r / 2;
             commodity.changePrice(n);
             Logger.getLogger(this.getClass()).info("shop random commodity " + n + JSON.toJSONString(commodity));
             commodityMap.put(commodity.getId(), commodity);
