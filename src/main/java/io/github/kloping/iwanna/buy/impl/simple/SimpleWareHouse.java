@@ -1,7 +1,7 @@
-package com.github.kloping.iwanna.buy.impl.simple;
+package io.github.kloping.iwanna.buy.impl.simple;
 
-import com.github.kloping.iwanna.buy.api.Commodity;
-import com.github.kloping.iwanna.buy.api.WareHouse;
+import io.github.kloping.iwanna.buy.api.Commodity;
+import io.github.kloping.iwanna.buy.api.WareHouse;
 import io.github.kloping.file.FileUtils;
 import io.github.kloping.serialize.HMLObject;
 import org.apache.log4j.Logger;

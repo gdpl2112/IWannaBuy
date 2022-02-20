@@ -1,7 +1,8 @@
-package com.github.kloping.iwanna.buy.impl.simple;
+package io.github.kloping.iwanna.buy.impl.simple;
 
 import com.github.kloping.iwanna.buy.api.*;
 import io.github.kloping.file.FileUtils;
+import io.github.kloping.iwanna.buy.api.*;
 import io.github.kloping.serialize.HMLObject;
 import org.apache.log4j.Logger;
 
@@ -9,7 +10,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.github.kloping.iwanna.buy.impl.simple.SimpleSys.RANDOM;
+import static io.github.kloping.iwanna.buy.impl.simple.SimpleSys.RANDOM;
 import static io.github.kloping.judge.Judge.isNotEmpty;
 
 /**

@@ -1,8 +1,6 @@
 package test0;
 
-import com.github.kloping.iwanna.buy.impl.Sys;
-import com.github.kloping.iwanna.buy.impl.simple.ConfCommodity;
-import com.github.kloping.iwanna.buy.impl.simple.ConfEvent;
+import io.github.kloping.iwanna.buy.impl.simple.ConfCommodity;
 import io.github.kloping.serialize.HMLObject;
 
 /**

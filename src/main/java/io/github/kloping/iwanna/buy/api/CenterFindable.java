@@ -1,4 +1,4 @@
-package com.github.kloping.iwanna.buy.api;
+package io.github.kloping.iwanna.buy.api;
 
 /**
  * @author github.kloping

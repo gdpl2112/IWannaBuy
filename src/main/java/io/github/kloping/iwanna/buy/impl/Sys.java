@@ -1,9 +1,8 @@
-package com.github.kloping.iwanna.buy.impl;
+package io.github.kloping.iwanna.buy.impl;
 
-import com.github.kloping.iwanna.buy.api.Bank;
-import com.github.kloping.iwanna.buy.api.Center;
-import com.github.kloping.iwanna.buy.api.Event;
-import com.github.kloping.iwanna.buy.api.Shop;
+import io.github.kloping.iwanna.buy.api.Bank;
+import io.github.kloping.iwanna.buy.api.Center;
+import io.github.kloping.iwanna.buy.api.Shop;
 import io.github.kloping.date.FrameUtils;
 
 import java.util.Objects;
