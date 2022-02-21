@@ -46,6 +46,8 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
         event.run();
         shake();
         Logger.getLogger(this.getClass()).debug("shop list " + getNames());
+        apply();
+        changed.clear();
         return event;
     }
 
@@ -73,6 +75,7 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
         for (int i = commodityMap.size(); i < getNum(); i++) {
             append0();
         }
+        changedHistory.put(getCenter().getIndex(), changed);
     }
 
     private boolean append() {
@@ -87,7 +90,8 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
             commodity.changePrice(n);
             Logger.getLogger(this.getClass()).info("shop random commodity " + n + JSON.toJSONString(commodity));
             commodityMap.put(commodity.getId(), commodity);
-            Logger.getLogger(this.getClass()).info("shop append from sys:" + JSON.toJSONString(commodity));
+            changed.put(commodity, n);
+            Logger.getLogger(this.getClass()).info("shop append from sys: " + JSON.toJSONString(commodity));
             return true;
         }
     }
@@ -101,6 +105,8 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
     }
 
     private Map<Commodity, Integer> changed = new HashMap<>();
+
+    private Map<Integer, Map<Commodity, Integer>> changedHistory = new HashMap<>();
 
     @Override
     public List<Commodity> change(int id, int offset) {

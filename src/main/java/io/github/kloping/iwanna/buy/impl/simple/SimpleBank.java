@@ -105,9 +105,14 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
         return rate == null ? rate() : rate;
     }
 
+    private final Integer MIN_RATE_VALUE = 100;
+
     @Override
     public int next() {
         bankMap.forEach((k, v) -> {
+            if (v.intValue() < MIN_RATE_VALUE) {
+                return;
+            }
             float f = (float) (v.intValue() * getInterestRate());
             int fi = (int) f;
             fi = fi > 0 ? fi : 1;

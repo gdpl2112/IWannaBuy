@@ -3,7 +3,6 @@ package io.github.kloping.iwanna.buy.impl.simple;
 import io.github.kloping.annotations.IgnoreField;
 import io.github.kloping.date.FrameUtils;
 import io.github.kloping.file.FileUtils;
-import io.github.kloping.initialize.FileInitializeValue;
 import io.github.kloping.iwanna.buy.api.*;
 import io.github.kloping.iwanna.buy.impl.Sys;
 import io.github.kloping.serialize.HMLObject;
@@ -49,7 +48,7 @@ public class SimpleSys extends Sys implements Savable<SimpleSys> {
     @IgnoreField
     private Map<Integer, Commodity> commodityMap = new HashMap<>();
     private Integer eventIndex = 0;
-    private int ID = 1000;
+    private int sid = 1000;
     private int indexEvent = 0;
 
     private SimpleSys() {
@@ -76,7 +75,7 @@ public class SimpleSys extends Sys implements Savable<SimpleSys> {
     }
 
     public synchronized int getId() {
-        return ++ID;
+        return ++sid;
     }
 
     @Override
@@ -90,7 +89,7 @@ public class SimpleSys extends Sys implements Savable<SimpleSys> {
     }
 
     public int updateId(int id) {
-        return ID = ID < id ? ID : id;
+        return sid = sid < id ? sid : id;
     }
 
     private void loadCommodity() {

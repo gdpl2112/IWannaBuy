@@ -5,4 +5,5 @@
 			vName: "java.lang.Integer"
 			k: 3474006766
 			v: 20
-	rate: 0.0049
+	rate: 0.0047
+	MIN_RATE_VALUE: 100

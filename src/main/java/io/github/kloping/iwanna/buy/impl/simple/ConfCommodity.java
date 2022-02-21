@@ -94,6 +94,10 @@ public class ConfCommodity implements Commodity {
     @Override
     public Commodity changePrice(Integer price) {
         this.nowPrice += price;
+        if (this.originalPrice / 2 >= this.nowPrice || this.originalPrice * 2 <= this.nowPrice) {
+            this.nowPrice = this.originalPrice;
+            Logger.getLogger(this.getClass()).info(name + " id " + id + " now Price Crossing the line  rollback originalPrice " + price + " now:" + this.nowPrice);
+        }
         Logger.getLogger(this.getClass()).info(name + " id " + id + " change Price => " + price + " now:" + this.nowPrice);
         return this;
     }
