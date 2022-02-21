@@ -1,12 +1,10 @@
 package io.github.kloping.iwanna.buy.impl.simple;
 
-import com.alibaba.fastjson.JSON;
+import io.github.kloping.annotations.IgnoreField;
 import io.github.kloping.date.FrameUtils;
 import io.github.kloping.file.FileUtils;
-import io.github.kloping.iwanna.buy.api.Bank;
-import io.github.kloping.iwanna.buy.api.Commodity;
-import io.github.kloping.iwanna.buy.api.Event;
-import io.github.kloping.iwanna.buy.api.Shop;
+import io.github.kloping.initialize.FileInitializeValue;
+import io.github.kloping.iwanna.buy.api.*;
 import io.github.kloping.iwanna.buy.impl.Sys;
 import io.github.kloping.serialize.HMLObject;
 import org.apache.log4j.Logger;
@@ -18,8 +16,7 @@ import java.util.*;
 /**
  * @author github.kloping
  */
-public class SimpleSys extends Sys {
-    private static int ID = 1000;
+public class SimpleSys extends Sys implements Savable<SimpleSys> {
 
     public static SimpleSys INSTANCE;
     public static final Random RANDOM = new Random();
@@ -31,24 +28,7 @@ public class SimpleSys extends Sys {
     private static String shopFileName = "shopConf.hml";
     private static String warehouseFileName = "warehouses";
 
-    @Override
-    public int getSerialId() {
-        return getId();
-    }
-
-    public static synchronized int getId() {
-        return ++ID;
-    }
-
-    @Override
-    public int updateSerialId(int id) {
-        return updateId(id);
-    }
-
-    public static synchronized int updateId(int id) {
-        return ID = ID < id ? ID : id;
-    }
-
+    @IgnoreField
     private String path;
 
     public static SimpleSys factory(String path) {
@@ -64,13 +44,53 @@ public class SimpleSys extends Sys {
         return sys;
     }
 
+    @IgnoreField
+    private List<Event> events = new LinkedList<>();
+    @IgnoreField
+    private Map<Integer, Commodity> commodityMap = new HashMap<>();
+    private Integer eventIndex = 0;
+    private int ID = 1000;
+    private int indexEvent = 0;
+
     private SimpleSys() {
     }
+
 
     @Override
     public void next() {
         super.next();
+        eventIndex++;
         Logger.getLogger(this.getClass()).debug("=======================");
+        apply();
+    }
+
+    @Override
+    public SimpleSys apply() {
+        FileUtils.putStringInFile(HMLObject.toHMLString(this), new File(basePath(), "center.hml"));
+        return this;
+    }
+
+    @Override
+    public int getSerialId() {
+        return getId();
+    }
+
+    public synchronized int getId() {
+        return ++ID;
+    }
+
+    @Override
+    public int updateSerialId(int id) {
+        return updateId(id);
+    }
+
+    @Override
+    public int getIndex() {
+        return eventIndex;
+    }
+
+    public int updateId(int id) {
+        return ID = ID < id ? ID : id;
     }
 
     private void loadCommodity() {
@@ -89,9 +109,6 @@ public class SimpleSys extends Sys {
             }
         }
     }
-
-    private List<Event> events = new LinkedList<>();
-    private Map<Integer, Commodity> commodityMap = new HashMap<>();
 
     @Override
     protected void loadEvents() {
@@ -155,8 +172,6 @@ public class SimpleSys extends Sys {
     public Shop getShop() {
         return shop;
     }
-
-    private int indexEvent = 0;
 
     @Override
     public Event getEvent() {

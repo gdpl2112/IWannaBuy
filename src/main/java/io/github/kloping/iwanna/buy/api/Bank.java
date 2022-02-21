@@ -1,5 +1,7 @@
 package io.github.kloping.iwanna.buy.api;
 
+import io.github.kloping.iwanna.buy.api.listener.OnBankRateListener;
+
 /**
  * @author github.kloping
  */
@@ -39,7 +41,7 @@ public interface Bank {
 
     /**
      * next day
-     * Most of the time it's called {@link Bank#rate()}
+     * Most of the time it's next called {@link Bank#rate()}
      *
      * @return
      */
@@ -51,4 +53,10 @@ public interface Bank {
      * @return
      */
     double rate();
+
+    /**
+     * add a listener
+     * @param listener
+     */
+    void addListener(OnBankRateListener listener);
 }

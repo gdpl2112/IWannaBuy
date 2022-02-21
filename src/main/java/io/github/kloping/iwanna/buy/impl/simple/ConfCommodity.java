@@ -107,6 +107,6 @@ public class ConfCommodity implements Commodity {
 
     @Override
     public Integer setSerialId(Integer id) {
-        return sid;
+        return this.sid = id;
     }
 }

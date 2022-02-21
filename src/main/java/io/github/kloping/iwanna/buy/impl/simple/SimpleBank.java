@@ -1,12 +1,16 @@
 package io.github.kloping.iwanna.buy.impl.simple;
 
+import io.github.kloping.annotations.IgnoreField;
 import io.github.kloping.file.FileUtils;
 import io.github.kloping.iwanna.buy.api.*;
+import io.github.kloping.iwanna.buy.api.listener.OnBankRateListener;
 import io.github.kloping.serialize.HMLObject;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static io.github.kloping.iwanna.buy.impl.simple.SimpleSys.RANDOM;
@@ -21,6 +25,7 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
         return SimpleSys.INSTANCE;
     }
 
+    @IgnoreField
     private String path;
     private Double rate = 0.001;
     private Map<Number, Number> bankMap = new HashMap<>();
@@ -108,6 +113,9 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
             fi = fi > 0 ? fi : 1;
             bankMap.put(k, v.intValue() + fi);
             Logger.getLogger(this.getClass()).info("player " + k + " append From bank " + fi);
+            for (OnBankRateListener listener : listeners) {
+                listener.onBankRate(k.longValue(), bankMap.get(k).longValue(), (long) fi);
+            }
         });
         Logger.getLogger(this.getClass()).info("bankMap " + bankMap);
         rate();
@@ -125,5 +133,13 @@ public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
         } finally {
             Logger.getLogger(this.getClass()).info("rate Change for " + rate);
         }
+    }
+
+    @IgnoreField
+    private List<OnBankRateListener> listeners = new ArrayList<>();
+
+    @Override
+    public void addListener(OnBankRateListener listener) {
+        listeners.add(listener);
     }
 }

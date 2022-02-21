@@ -97,4 +97,10 @@ public interface Center {
      * @return
      */
     int updateSerialId(int id);
+
+    /**
+     * index for next times
+     * @return
+     */
+    int getIndex();
 }

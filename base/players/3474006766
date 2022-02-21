@@ -1,5 +1,5 @@
-->com.github.kloping.iwanna.buy.impl.simple.SimplePlayer
+->io.github.kloping.iwanna.buy.impl.simple.SimplePlayer
 	qid: 3474006766
 	dir: ->java.io.File
 		path: ".\base\players"
-	money: 0
+	money: 83669

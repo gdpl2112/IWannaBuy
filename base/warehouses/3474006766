@@ -1,0 +1,6 @@
+->io.github.kloping.iwanna.buy.impl.simple.SimpleWareHouse
+	dir: ->java.io.File
+		path: ".\base\warehouses"
+	qid: 3474006766
+	capacity: 40
+	commodities: ->java.util.LinkedList

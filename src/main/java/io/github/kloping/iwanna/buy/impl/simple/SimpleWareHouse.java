@@ -60,6 +60,7 @@ public class SimpleWareHouse implements WareHouse {
         if (getSurplusCapacity() >= commodity.getSize()) {
             commodities.add(commodity);
         }
+        apply();
         return getSurplusCapacity();
     }
 
@@ -92,13 +93,15 @@ public class SimpleWareHouse implements WareHouse {
         Logger.getLogger(this.getClass()).info("warehouse " + getId() + " lose " + commodity.getId() + "-" + num);
         int i = num;
         Iterator<Commodity> commodityIterator = getAll().iterator();
-        while (i == 0 || commodityIterator.hasNext()) {
+        while (commodityIterator.hasNext()) {
             Commodity c0 = commodityIterator.next();
             if (c0.getId() == commodity.getId()) {
                 commodityIterator.remove();
                 i--;
             }
+            if (i==0){break;}
         }
+        apply();
         return this;
     }
 }
