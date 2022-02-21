@@ -90,7 +90,7 @@ public class SimpleWareHouse implements WareHouse {
 
     @Override
     public WareHouse lose(Commodity commodity, int num) {
-        Logger.getLogger(this.getClass()).info("warehouse " + getId() + " lose " + commodity.getId() + "-" + num);
+        Logger.getLogger(this.getClass()).info("warehouse " + getId() + " lose " + commodity.getId() + " num " + num);
         int i = num;
         Iterator<Commodity> commodityIterator = getAll().iterator();
         while (commodityIterator.hasNext()) {
