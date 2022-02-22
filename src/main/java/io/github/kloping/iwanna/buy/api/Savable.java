@@ -5,9 +5,16 @@ package io.github.kloping.iwanna.buy.api;
  */
 public interface Savable<T> {
     /**
-     * save apply
+     * set saver
      *
+     * @param saver
      * @return
      */
-    T apply();
+    T setSaver(Saver<T> saver);
+
+    /**
+     * get saver
+     * @return
+     */
+    Saver<T> getSaver();
 }

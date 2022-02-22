@@ -5,6 +5,7 @@ import io.github.kloping.date.FrameUtils;
 import io.github.kloping.file.FileUtils;
 import io.github.kloping.iwanna.buy.api.*;
 import io.github.kloping.iwanna.buy.impl.Sys;
+import io.github.kloping.iwanna.buy.impl.saver.FileHmlSaver;
 import io.github.kloping.serialize.HMLObject;
 import org.apache.log4j.Logger;
 
@@ -60,13 +61,23 @@ public class SimpleSys extends Sys implements Savable<SimpleSys> {
         super.next();
         eventIndex++;
         Logger.getLogger(this.getClass()).debug("=======================");
-        apply();
+        getSaver().apply(this);
+    }
+
+    private Saver<SimpleSys> saver;
+
+    @Override
+    public SimpleSys setSaver(Saver<SimpleSys> saver) {
+        this.saver = saver;
+        return this;
     }
 
     @Override
-    public SimpleSys apply() {
-        FileUtils.putStringInFile(HMLObject.toHMLString(this), new File(basePath(), "center.hml"));
-        return this;
+    public Saver<SimpleSys> getSaver() {
+        if (saver == null) {
+            saver = new FileHmlSaver<>(new File(basePath(), "center.hml"));
+        }
+        return saver;
     }
 
     @Override

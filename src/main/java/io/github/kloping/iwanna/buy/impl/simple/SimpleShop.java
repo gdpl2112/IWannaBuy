@@ -1,9 +1,8 @@
 package io.github.kloping.iwanna.buy.impl.simple;
 
 import com.alibaba.fastjson.JSON;
-import io.github.kloping.file.FileUtils;
 import io.github.kloping.iwanna.buy.api.*;
-import io.github.kloping.serialize.HMLObject;
+import io.github.kloping.iwanna.buy.impl.saver.FileHmlSaver;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -28,11 +27,20 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
     public SimpleShop() {
     }
 
+    private Saver<Shop> saver;
+
     @Override
-    public Shop apply() {
-        File file = new File(getCenter().basePath(), getCenter().shopPath());
-        FileUtils.putStringInFile(HMLObject.toHMLString(this), file);
+    public Shop setSaver(Saver<Shop> saver) {
+        this.saver = saver;
         return this;
+    }
+
+    @Override
+    public Saver<Shop> getSaver() {
+        if (saver == null) {
+            saver = new FileHmlSaver<>(new File(getCenter().basePath(), getCenter().shopPath()));
+        }
+        return saver;
     }
 
     @Override
@@ -46,7 +54,7 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
         event.run();
         shake();
         Logger.getLogger(this.getClass()).debug("shop list " + getNames());
-        apply();
+        getSaver().apply(this);
         changed.clear();
         return event;
     }

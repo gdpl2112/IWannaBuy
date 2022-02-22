@@ -1,4 +1,5 @@
 ->io.github.kloping.iwanna.buy.impl.simple.SimpleSys
 	sid: 1000
 	eventIndex: 2
+	saver: ->io.github.kloping.iwanna.buy.impl.saver.FileHmlSaver
 	indexEvent: 2

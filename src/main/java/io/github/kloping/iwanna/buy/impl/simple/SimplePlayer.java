@@ -3,6 +3,7 @@ package io.github.kloping.iwanna.buy.impl.simple;
 import io.github.kloping.clasz.ClassUtils;
 import io.github.kloping.file.FileUtils;
 import io.github.kloping.iwanna.buy.api.*;
+import io.github.kloping.iwanna.buy.impl.saver.FileHmlSaver;
 import io.github.kloping.serialize.HMLObject;
 import org.apache.log4j.Logger;
 
@@ -32,7 +33,7 @@ public class SimplePlayer implements Player, CenterFindable {
             player = new SimplePlayer();
             player.dir = dir;
             player.qid = qid;
-            player.apply();
+            player.getSaver().apply(player);
             Logger.getLogger(SimplePlayer.class).info("get player from new " + qid);
             return player;
         }
@@ -48,15 +49,24 @@ public class SimplePlayer implements Player, CenterFindable {
     }
 
     @Override
-    public Player apply() {
-        File file = new File(dir, qid.toString());
-        FileUtils.putStringInFile(HMLObject.toHMLString(this), file);
+    public WareHouse getWareHouse() {
+        return SimpleWareHouse.getInstance(qid, new File(getCenter().basePath(), getCenter().warehousePath()));
+    }
+
+    private Saver<Player> saver;
+
+    @Override
+    public Player setSaver(Saver<Player> saver) {
+        this.saver = this.saver;
         return this;
     }
 
     @Override
-    public WareHouse getWareHouse() {
-        return SimpleWareHouse.getInstance(qid, new File(getCenter().basePath(), getCenter().warehousePath()));
+    public Saver<Player> getSaver() {
+        if (saver == null) {
+            saver = new FileHmlSaver<>(new File(dir, qid.toString()));
+        }
+        return saver;
     }
 
     @Override
@@ -80,7 +90,7 @@ public class SimplePlayer implements Player, CenterFindable {
         try {
             return this.money += money;
         } finally {
-            apply();
+            getSaver().apply(this);
         }
     }
 
@@ -89,7 +99,7 @@ public class SimplePlayer implements Player, CenterFindable {
         try {
             return this.money -= money;
         } finally {
-            apply();
+            getSaver().apply(this);
         }
     }
 
@@ -111,8 +121,8 @@ public class SimplePlayer implements Player, CenterFindable {
             commodity.setTime(System.currentTimeMillis());
             getWareHouse().add(commodity);
             lose(mm);
-            getWareHouse().apply();
-            apply();
+            getWareHouse().getSaver().apply(getWareHouse());
+            getSaver().apply(this);
             Logger.getLogger(this.getClass()).info("player " + qid + " buy ed " + c.getName() + "(" + c.getId() + "," + c.getNowPrice() + ")");
             return true;
         }
@@ -127,7 +137,7 @@ public class SimplePlayer implements Player, CenterFindable {
             int m0 = shopComm.getNowPrice().intValue() * num;
             getWareHouse().lose(c, num);
             append(m0);
-            apply();
+            getSaver().apply(this);
             Logger.getLogger(this.getClass()).info("player " + qid + " sell ed " + c.getName() + "(" + c.getId() + "," + c.getNowPrice() + ")");
             return true;
         } else {

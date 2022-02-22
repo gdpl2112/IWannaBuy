@@ -5,5 +5,6 @@
 			vName: "java.lang.Integer"
 			k: 3474006766
 			v: 20
-	rate: 0.0047
+	rate: 0.0023
+	saver: ->io.github.kloping.iwanna.buy.impl.saver.FileHmlSaver
 	MIN_RATE_VALUE: 100

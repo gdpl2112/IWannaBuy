@@ -2,7 +2,9 @@ package io.github.kloping.iwanna.buy.impl.simple;
 
 import io.github.kloping.file.FileUtils;
 import io.github.kloping.iwanna.buy.api.Commodity;
+import io.github.kloping.iwanna.buy.api.Saver;
 import io.github.kloping.iwanna.buy.api.WareHouse;
+import io.github.kloping.iwanna.buy.impl.saver.FileHmlSaver;
 import io.github.kloping.serialize.HMLObject;
 import org.apache.log4j.Logger;
 
@@ -26,7 +28,7 @@ public class SimpleWareHouse implements WareHouse {
             SimpleWareHouse wareHouse = new SimpleWareHouse();
             wareHouse.dir = dir;
             wareHouse.qid = qid;
-            wareHouse.apply();
+            wareHouse.getSaver().apply(wareHouse);
             return wareHouse;
         }
     }
@@ -60,7 +62,7 @@ public class SimpleWareHouse implements WareHouse {
         if (getSurplusCapacity() >= commodity.getSize()) {
             commodities.add(commodity);
         }
-        apply();
+        getSaver().apply(this);
         return getSurplusCapacity();
     }
 
@@ -69,11 +71,20 @@ public class SimpleWareHouse implements WareHouse {
         return commodities;
     }
 
+    private Saver<WareHouse> saver;
+
     @Override
-    public WareHouse apply() {
-        File file = new File(dir, qid.toString());
-        FileUtils.putStringInFile(HMLObject.toHMLString(this), file);
+    public WareHouse setSaver(Saver<WareHouse> saver) {
+        this.saver = saver;
         return this;
+    }
+
+    @Override
+    public Saver<WareHouse> getSaver() {
+        if (saver == null) {
+            saver = new FileHmlSaver<>(new File(dir, qid.toString()));
+        }
+        return saver;
     }
 
     @Override
@@ -99,9 +110,11 @@ public class SimpleWareHouse implements WareHouse {
                 commodityIterator.remove();
                 i--;
             }
-            if (i==0){break;}
+            if (i == 0) {
+                break;
+            }
         }
-        apply();
+        getSaver().apply(this);
         return this;
     }
 }
