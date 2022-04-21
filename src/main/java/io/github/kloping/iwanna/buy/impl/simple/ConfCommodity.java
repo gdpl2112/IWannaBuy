@@ -1,10 +1,10 @@
-package io.github.Kloping.iwanna.buy.impl.simple;
+package io.github.kloping.iwanna.buy.impl.simple;
 
-import io.github.Kloping.iwanna.buy.api.Commodity;
+import io.github.kloping.iwanna.buy.api.Commodity;
 import org.apache.log4j.Logger;
 
 /**
- * @author github.Kloping
+ * @author github.kloping
  */
 public class ConfCommodity implements Commodity {
     private String name;

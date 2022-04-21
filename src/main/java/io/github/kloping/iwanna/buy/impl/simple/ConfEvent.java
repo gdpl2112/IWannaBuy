@@ -1,9 +1,9 @@
-package io.github.Kloping.iwanna.buy.impl.simple;
+package io.github.kloping.iwanna.buy.impl.simple;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import io.github.Kloping.iwanna.buy.api.Center;
-import io.github.Kloping.iwanna.buy.api.CenterFindable;
-import io.github.Kloping.iwanna.buy.api.Event;
+import io.github.kloping.iwanna.buy.api.Center;
+import io.github.kloping.iwanna.buy.api.CenterFindable;
+import io.github.kloping.iwanna.buy.api.Event;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author github.Kloping
+ * @author github.kloping
  */
 public class ConfEvent implements Event, CenterFindable {
     private Map<Integer, Integer> changes = new HashMap<>();

@@ -1,9 +1,9 @@
-package io.github.Kloping.iwanna.buy.api;
+package io.github.kloping.iwanna.buy.api;
 
-import io.github.Kloping.iwanna.buy.api.listener.OnBankRateListener;
+import io.github.kloping.iwanna.buy.api.listener.OnBankRateListener;
 
 /**
- * @author github.Kloping
+ * @author github.kloping
  */
 public interface Bank {
     /**

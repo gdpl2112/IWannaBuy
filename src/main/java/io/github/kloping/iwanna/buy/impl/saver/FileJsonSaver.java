@@ -1,13 +1,13 @@
-package io.github.Kloping.iwanna.buy.impl.saver;
+package io.github.kloping.iwanna.buy.impl.saver;
 
 import com.alibaba.fastjson.JSON;
-import io.github.Kloping.file.FileUtils;
+import io.github.kloping.file.FileUtils;
 import org.apache.log4j.Logger;
 
 import java.io.File;
 
 /**
- * @author github.Kloping
+ * @author github.kloping
  */
 public class FileJsonSaver<T> extends FileSaver<T> {
     public FileJsonSaver(File file) {

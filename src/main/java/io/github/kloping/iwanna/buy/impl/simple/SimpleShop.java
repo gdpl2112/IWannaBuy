@@ -1,8 +1,8 @@
-package io.github.Kloping.iwanna.buy.impl.simple;
+package io.github.kloping.iwanna.buy.impl.simple;
 
 import com.alibaba.fastjson.JSON;
-import io.github.Kloping.iwanna.buy.api.*;
-import io.github.Kloping.iwanna.buy.impl.saver.FileHmlSaver;
+import io.github.kloping.iwanna.buy.api.*;
+import io.github.kloping.iwanna.buy.impl.saver.FileHmlSaver;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -11,10 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.github.Kloping.iwanna.buy.impl.simple.SimpleSys.RANDOM;
+import static io.github.kloping.iwanna.buy.impl.simple.SimpleSys.RANDOM;
 
 /**
- * @author github.Kloping
+ * @author github.kloping
  */
 public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
 

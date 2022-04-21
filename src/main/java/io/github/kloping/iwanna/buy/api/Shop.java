@@ -1,10 +1,10 @@
-package io.github.Kloping.iwanna.buy.api;
+package io.github.kloping.iwanna.buy.api;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author github Kloping
+ * @author github kloping
  */
 public interface Shop {
     /**

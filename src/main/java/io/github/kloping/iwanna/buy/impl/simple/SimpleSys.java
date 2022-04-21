@@ -1,12 +1,12 @@
-package io.github.Kloping.iwanna.buy.impl.simple;
+package io.github.kloping.iwanna.buy.impl.simple;
 
-import io.github.Kloping.annotations.IgnoreField;
-import io.github.Kloping.date.FrameUtils;
-import io.github.Kloping.file.FileUtils;
-import io.github.Kloping.iwanna.buy.api.*;
-import io.github.Kloping.iwanna.buy.impl.Sys;
-import io.github.Kloping.iwanna.buy.impl.saver.FileHmlSaver;
-import io.github.Kloping.serialize.HMLObject;
+import io.github.kloping.iwanna.buy.api.*;
+import io.github.kloping.iwanna.buy.impl.Sys;
+import io.github.kloping.iwanna.buy.impl.saver.FileHmlSaver;
+import io.github.kloping.annotations.IgnoreField;
+import io.github.kloping.date.FrameUtils;
+import io.github.kloping.file.FileUtils;
+import io.github.kloping.serialize.HMLObject;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -14,7 +14,7 @@ import java.io.FileFilter;
 import java.util.*;
 
 /**
- * @author github.Kloping
+ * @author github.kloping
  */
 public class SimpleSys extends Sys implements Savable<SimpleSys> {
 

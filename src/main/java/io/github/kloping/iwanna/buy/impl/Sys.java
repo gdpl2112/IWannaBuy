@@ -1,14 +1,14 @@
-package io.github.Kloping.iwanna.buy.impl;
+package io.github.kloping.iwanna.buy.impl;
 
-import io.github.Kloping.date.FrameUtils;
-import io.github.Kloping.iwanna.buy.api.Bank;
-import io.github.Kloping.iwanna.buy.api.Center;
-import io.github.Kloping.iwanna.buy.api.Shop;
+import io.github.kloping.date.FrameUtils;
+import io.github.kloping.iwanna.buy.api.Bank;
+import io.github.kloping.iwanna.buy.api.Center;
+import io.github.kloping.iwanna.buy.api.Shop;
 
 import java.util.Objects;
 
 /**
- * @author github.Kloping
+ * @author github.kloping
  */
 public abstract class Sys implements Runnable, Center {
     public Shop shop;

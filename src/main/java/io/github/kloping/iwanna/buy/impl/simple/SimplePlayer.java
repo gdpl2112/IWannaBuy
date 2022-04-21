@@ -1,18 +1,18 @@
-package io.github.Kloping.iwanna.buy.impl.simple;
+package io.github.kloping.iwanna.buy.impl.simple;
 
-import io.github.Kloping.clasz.ClassUtils;
-import io.github.Kloping.file.FileUtils;
-import io.github.Kloping.iwanna.buy.api.*;
-import io.github.Kloping.iwanna.buy.impl.saver.FileHmlSaver;
-import io.github.Kloping.serialize.HMLObject;
+import io.github.kloping.clasz.ClassUtils;
+import io.github.kloping.file.FileUtils;
+import io.github.kloping.iwanna.buy.api.*;
+import io.github.kloping.iwanna.buy.impl.saver.FileHmlSaver;
+import io.github.kloping.serialize.HMLObject;
 import org.apache.log4j.Logger;
 
 import java.io.File;
 
-import static io.github.Kloping.judge.Judge.isNotEmpty;
+import static io.github.kloping.judge.Judge.isNotEmpty;
 
 /**
- * @author github.Kloping
+ * @author github.kloping
  */
 public class SimplePlayer implements Player, CenterFindable {
 
