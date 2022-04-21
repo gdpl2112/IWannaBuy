@@ -2,6 +2,7 @@ package io.github.kloping.iwanna.buy.impl.simple;
 
 import com.alibaba.fastjson.JSON;
 import io.github.kloping.iwanna.buy.api.*;
+import io.github.kloping.iwanna.buy.api.listener.OnEventListener;
 import io.github.kloping.iwanna.buy.impl.saver.FileHmlSaver;
 import org.apache.log4j.Logger;
 
@@ -48,10 +49,23 @@ public class SimpleShop implements Shop, CenterFindable, Savable<Shop> {
         return 6;
     }
 
+    private List<OnEventListener> listeners = new ArrayList<>();
+
+    @Override
+    public void addListener(OnEventListener eventListener) {
+        listeners.add(eventListener);
+    }
+
     @Override
     public Event next() {
         Event event = getCenter().getEvent();
+        for (OnEventListener listener : listeners) {
+            listener.onEventBefore(event);
+        }
         event.run();
+        for (OnEventListener listener : listeners) {
+            listener.onEventAfter(event);
+        }
         shake();
         Logger.getLogger(this.getClass()).debug("shop list " + getNames());
         getSaver().apply(this);

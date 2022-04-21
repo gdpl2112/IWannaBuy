@@ -1,5 +1,7 @@
 package io.github.kloping.iwanna.buy.api;
 
+import io.github.kloping.iwanna.buy.api.listener.OnEventListener;
+
 import java.util.List;
 import java.util.Map;
 
@@ -44,4 +46,11 @@ public interface Shop {
      * @return
      */
     int getNum();
+
+    /**
+     * add event
+     *
+     * @param eventListener
+     */
+    void addListener(OnEventListener eventListener);
 }
