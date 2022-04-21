@@ -4,7 +4,10 @@ import io.github.kloping.date.FrameUtils;
 import io.github.kloping.iwanna.buy.api.Bank;
 import io.github.kloping.iwanna.buy.api.Center;
 import io.github.kloping.iwanna.buy.api.Shop;
+import io.github.kloping.iwanna.buy.api.listener.NextListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -31,9 +34,15 @@ public abstract class Sys implements Runnable, Center {
     protected abstract void loadEvents();
 
     public void next() {
+        for (NextListener listener : listeners) {
+            listener.onNextBefore(this);
+        }
         index = 0;
         shop.next();
         bank.next();
+        for (NextListener listener : listeners) {
+            listener.onNexted(this);
+        }
     }
 
     @Override
@@ -72,5 +81,12 @@ public abstract class Sys implements Runnable, Center {
 
     public void setIndex(long index) {
         this.index = index;
+    }
+
+    private List<NextListener> listeners = new ArrayList<>();
+
+    public List<NextListener> addListener(NextListener listener) {
+        listeners.add(listener);
+        return listeners;
     }
 }

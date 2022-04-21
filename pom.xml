@@ -6,7 +6,7 @@
 
     <groupId>io.github.kloping</groupId>
     <artifactId>IWannaBuy</artifactId>
-    <version>0.1</version>
+    <version>0.1.1</version>
     <packaging>jar</packaging>
     <name>spt-web</name>
     <url>https://github.com/gdpl2112/IWannaBuy</url>
