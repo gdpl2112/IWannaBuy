@@ -1,7 +1,7 @@
-package io.github.kloping.iwanna.buy.api;
+package io.github.Kloping.iwanna.buy.api;
 
 /**
- * @author github.kloping
+ * @author github.Kloping
  */
 public interface Saver<T> {
     /**

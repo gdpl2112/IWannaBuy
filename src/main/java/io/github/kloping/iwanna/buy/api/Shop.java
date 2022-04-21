@@ -1,10 +1,10 @@
-package io.github.kloping.iwanna.buy.api;
+package io.github.Kloping.iwanna.buy.api;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author github kloping
+ * @author github Kloping
  */
 public interface Shop {
     /**
@@ -32,7 +32,7 @@ public interface Shop {
 
     /**
      * get now all commodity
-     * map id->commodity
+     * map id for commodity
      *
      * @return
      */

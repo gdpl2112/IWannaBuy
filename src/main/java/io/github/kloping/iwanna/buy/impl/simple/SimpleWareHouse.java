@@ -1,11 +1,11 @@
-package io.github.kloping.iwanna.buy.impl.simple;
+package io.github.Kloping.iwanna.buy.impl.simple;
 
-import io.github.kloping.file.FileUtils;
-import io.github.kloping.iwanna.buy.api.Commodity;
-import io.github.kloping.iwanna.buy.api.Saver;
-import io.github.kloping.iwanna.buy.api.WareHouse;
-import io.github.kloping.iwanna.buy.impl.saver.FileHmlSaver;
-import io.github.kloping.serialize.HMLObject;
+import io.github.Kloping.file.FileUtils;
+import io.github.Kloping.iwanna.buy.api.Commodity;
+import io.github.Kloping.iwanna.buy.api.Saver;
+import io.github.Kloping.iwanna.buy.api.WareHouse;
+import io.github.Kloping.iwanna.buy.impl.saver.FileHmlSaver;
+import io.github.Kloping.serialize.HMLObject;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -13,10 +13,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import static io.github.kloping.judge.Judge.isNotEmpty;
+import static io.github.Kloping.judge.Judge.isNotEmpty;
 
 /**
- * @author github.kloping
+ * @author github.Kloping
  */
 public class SimpleWareHouse implements WareHouse {
     public static SimpleWareHouse getInstance(Long qid, File dir) {

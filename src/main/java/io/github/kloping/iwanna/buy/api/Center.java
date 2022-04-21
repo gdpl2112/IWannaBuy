@@ -1,9 +1,9 @@
-package io.github.kloping.iwanna.buy.api;
+package io.github.Kloping.iwanna.buy.api;
 
 import java.util.List;
 
 /**
- * @author github.kloping
+ * @author github.Kloping
  */
 public interface Center {
     /**

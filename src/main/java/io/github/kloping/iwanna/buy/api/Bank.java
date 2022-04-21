@@ -1,17 +1,17 @@
-package io.github.kloping.iwanna.buy.api;
+package io.github.Kloping.iwanna.buy.api;
 
-import io.github.kloping.iwanna.buy.api.listener.OnBankRateListener;
+import io.github.Kloping.iwanna.buy.api.listener.OnBankRateListener;
 
 /**
- * @author github.kloping
+ * @author github.Kloping
  */
 public interface Bank {
     /**
      * save money
      *
-     * @param player
-     * @param money
-     * @return
+     * @param player p
+     * @param money m
+     * @return true or false for Successful or failure
      */
     boolean save(Player player, int money);
 
@@ -56,6 +56,7 @@ public interface Bank {
 
     /**
      * add a listener
+     *
      * @param listener
      */
     void addListener(OnBankRateListener listener);

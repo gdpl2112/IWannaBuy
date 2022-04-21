@@ -1,11 +1,11 @@
-package io.github.kloping.iwanna.buy.impl.simple;
+package io.github.Kloping.iwanna.buy.impl.simple;
 
-import io.github.kloping.annotations.IgnoreField;
-import io.github.kloping.file.FileUtils;
-import io.github.kloping.iwanna.buy.api.*;
-import io.github.kloping.iwanna.buy.api.listener.OnBankRateListener;
-import io.github.kloping.iwanna.buy.impl.saver.FileHmlSaver;
-import io.github.kloping.serialize.HMLObject;
+import io.github.Kloping.annotations.IgnoreField;
+import io.github.Kloping.file.FileUtils;
+import io.github.Kloping.iwanna.buy.api.*;
+import io.github.Kloping.iwanna.buy.api.listener.OnBankRateListener;
+import io.github.Kloping.iwanna.buy.impl.saver.FileHmlSaver;
+import io.github.Kloping.serialize.HMLObject;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -14,11 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.github.kloping.iwanna.buy.impl.simple.SimpleSys.RANDOM;
-import static io.github.kloping.judge.Judge.isNotEmpty;
+import static io.github.Kloping.iwanna.buy.impl.simple.SimpleSys.RANDOM;
+import static io.github.Kloping.judge.Judge.isNotEmpty;
 
 /**
- * @author github.kloping
+ * @author github.Kloping
  */
 public class SimpleBank implements Bank, Savable<Bank>, CenterFindable {
     @Override

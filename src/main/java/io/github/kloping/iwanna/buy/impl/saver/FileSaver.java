@@ -1,11 +1,11 @@
-package io.github.kloping.iwanna.buy.impl.saver;
+package io.github.Kloping.iwanna.buy.impl.saver;
 
-import io.github.kloping.iwanna.buy.api.Saver;
+import io.github.Kloping.iwanna.buy.api.Saver;
 
 import java.io.File;
 
 /**
- * @author github.kloping
+ * @author github.Kloping
  */
 public abstract class FileSaver<T> implements Saver<T> {
     protected File file;
